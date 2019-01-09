@@ -6,6 +6,9 @@ const CleanPlugin = require('clean-webpack-plugin')
 // 需要把webpack升级到4.2.0.0，不然这个插件无法运行！
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const internalIp = require('internal-ip')
+
+const dev = Boolean(process.env.)
+console.log(dev);
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
@@ -19,29 +22,29 @@ module.exports = {
   },
   module: {
     rules: [{
-      // es6就是未来，可是现在的浏览器对他的支持不是很好，我们需要babel来转换他
-      test: /\.js$/,
-      exclude: /node_modules/,
-      use: {
-        loader: 'babel-loader'
-      }
-    }, {
-      test: /\.css$/,
-      use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'postcss-loader']
-    },
-    {
-      test: /\.html$/,
-      use: [{
-        loader: 'html-loader',
-        options: {
-          minimize: true,
-          // html 中的 <img> 标签没法使用这个别名功能，但 html-loader 有一个 root 参数，
-          // 可以使 / 开头的文件相对于 root 目录解析
-          root: path.resolve(__dirname, 'src'),
-          attrs: ['img:src', 'link:href']
+        // es6就是未来，可是现在的浏览器对他的支持不是很好，我们需要babel来转换他
+        test: /\.js$/,
+        exclude: /node_modules/,
+        use: {
+          loader: 'babel-loader'
         }
-      }]
-    }
+      }, {
+        test: /\.css$/,
+        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'postcss-loader']
+      },
+      {
+        test: /\.html$/,
+        use: [{
+          loader: 'html-loader',
+          options: {
+            minimize: true,
+            // html 中的 <img> 标签没法使用这个别名功能，但 html-loader 有一个 root 参数，
+            // 可以使 / 开头的文件相对于 root 目录解析
+            root: path.resolve(__dirname, 'src'),
+            attrs: ['img:src', 'link:href']
+          }
+        }]
+      }
     ]
   },
   plugins: [
