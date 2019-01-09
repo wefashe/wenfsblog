@@ -7,8 +7,8 @@ const CleanPlugin = require('clean-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const internalIp = require('internal-ip')
 
-const dev = Boolean(process.env.)
-console.log(dev);
+// const dev = Boolean(process.env.)
+// console.log(dev);
 module.exports = {
   mode: 'development',
   devtool: 'source-map',
@@ -29,10 +29,12 @@ module.exports = {
           loader: 'babel-loader'
         }
       }, {
+        //提取样式 处理url 加上浏览器前缀
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'postcss-loader']
       },
       {
+        //处理html模版，处理img标签
         test: /\.html$/,
         use: [{
           loader: 'html-loader',
@@ -60,13 +62,13 @@ module.exports = {
       minify: {
         // 默认值都为false
         // 清理注释
-        removeComments: true,
+        removeComments: false,
         // 清理html中的空格、换行符 但span元素内字符串包含的空格没有被清理
-        collapseWhitespace: true,
+        collapseWhitespace: false,
         // 压缩html内的样式
-        minifyCSS: true,
+        minifyCSS: false,
         // 压缩html内的js。
-        minifyJS: true
+        minifyJS: false
       }
     }),
     new MiniCssExtractPlugin({
