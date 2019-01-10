@@ -39,7 +39,8 @@ module.exports = {
         use: [{
           loader: 'html-loader',
           options: {
-            minimize: true,
+            //压缩html页面
+            // minimize: true,
             // html 中的 <img> 标签没法使用这个别名功能，但 html-loader 有一个 root 参数，
             // 可以使 / 开头的文件相对于 root 目录解析
             root: path.resolve(__dirname, 'src'),
@@ -56,19 +57,21 @@ module.exports = {
     new HtmlPlugin({
       // 要用html模版，必须安装html-loader
       template: path.resolve(__dirname, 'src/index.html'),
+      // 生成的html文件名称
+      // filename: 'index.html',
       favicon: path.resolve(__dirname, 'src/assets/image/favicon.ico'),
-      filename: path.resolve(__dirname, 'dist/index.html'),
+      title: 'wenfsblog',
       // 内置html-minifier压缩插件
       minify: {
-        // 默认值都为false
-        // 清理注释
+        //   // 默认值都为false
+        //   // 清理注释
         removeComments: false,
-        // 清理html中的空格、换行符 但span元素内字符串包含的空格没有被清理
-        collapseWhitespace: false,
-        // 压缩html内的样式
-        minifyCSS: false,
-        // 压缩html内的js。
-        minifyJS: false
+        //   // 清理html中的空格、换行符 但span元素内字符串包含的空格没有被清理
+        collapseWhitespace: true,
+        //   // 压缩html内的样式
+        //   minifyCSS: false,
+        //   // 压缩html内的js。
+        //   minifyJS: false
       }
     }),
     new MiniCssExtractPlugin({
