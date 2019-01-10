@@ -1,7 +1,8 @@
+'use strict'
+
 // webpack v4
 const path = require('path')
 const HtmlPlugin = require('html-webpack-plugin')
-const CleanPlugin = require('clean-webpack-plugin')
 // extract-text-webpack-plugin在webpack 4表现并不好，mini-css-extract-plugin代替
 // 需要把webpack升级到4.2.0.0，不然这个插件无法运行！
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
@@ -10,13 +11,11 @@ const internalIp = require('internal-ip')
 // const dev = Boolean(process.env.)
 // console.log(dev);
 module.exports = {
-  mode: 'development',
-  devtool: 'source-map',
-  entry: path.resolve(__dirname, 'src/main.js'),
+  entry: path.resolve(__dirname, '../src/main.js'),
   output: {
     // js引用路径或者CDN地址
-    publicPath: '/assets/',
-    path: path.resolve(__dirname, 'dist'),
+    publicPath: '/',
+    path: path.resolve(__dirname, '../dist'),
     // hash 所有打包文件名hash相同  chunkhash 每个打包文件名hash都不相同
     filename: '[name].[hash:8].js'
   },
@@ -29,9 +28,19 @@ module.exports = {
           loader: 'babel-loader'
         }
       }, {
-        //提取样式 处理url 加上浏览器前缀
-        test: /\.css$/,
-        use: [MiniCssExtractPlugin.loader, 'style-loader', 'css-loader', 'postcss-loader']
+        test: /\.l?(c|e)ss$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'postcss-loader'
+          },
+          {
+            loader: 'less-loader'
+          },
+        ]
       },
       {
         //处理html模版，处理img标签
@@ -43,24 +52,44 @@ module.exports = {
             // minimize: true,
             // html 中的 <img> 标签没法使用这个别名功能，但 html-loader 有一个 root 参数，
             // 可以使 / 开头的文件相对于 root 目录解析
-            root: path.resolve(__dirname, 'src'),
+            root: path.resolve(__dirname, '../src'),
             attrs: ['img:src', 'link:href']
           }
         }]
+      },
+      // {
+      //   test: /\.(png|jpg|jfif|jpeg|gif)$/,
+      //   use: [{
+      //     loader: 'url-loader',
+      //     options: {
+      //       // 低于这个limit就直接转成base64插入到style里，不然以name的方式命名存放
+      //       // 这里的单位时bit
+      //       limit: 8192,
+      //       name: 'static/images/[hash:8].[name].[ext]'
+      //     }
+      //   }]
+      // }, {
+      //   test: /\.(woff|woff2|eot|ttf|otf)$/,
+      //   use: [{
+      //     loader: 'url-loader',
+      //     // 字体图标啥的，跟图片分处理方式一样
+      //     name: 'static/font/[hash:8].[name].[ext]'
+      //   }]
+      // },
+      {
+        test: /\.vue$/,
+        loader: 'vue-loader'
       }
     ]
   },
   plugins: [
-    // 清空dist文件夹
-    new CleanPlugin(['dist']),
     // 在dist生成index.html页面
     new HtmlPlugin({
       // 要用html模版，必须安装html-loader
-      template: path.resolve(__dirname, 'src/index.html'),
+      template: path.resolve(__dirname, 'index.html'),
       // 生成的html文件名称
       // filename: 'index.html',
-      favicon: path.resolve(__dirname, 'src/assets/image/favicon.ico'),
-      title: 'wenfsblog',
+      favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
       // 内置html-minifier压缩插件
       minify: {
         //   // 默认值都为false
@@ -75,8 +104,8 @@ module.exports = {
       }
     }),
     new MiniCssExtractPlugin({
-      filename: '[name].css',
-      chunkFilename: '[id].css'
+      filename: 'static/css/[name].[hash].css',
+      chunkFilename: 'static/css/[name].[hash].css'
     })
   ],
   optimization: {
@@ -102,48 +131,9 @@ module.exports = {
       }
     }
   },
-
-  devServer: {
-    contentBase: path.resolve(__dirname, 'dist'),
-    host: '0.0.0.0',
-    port: 8000,
-    hot: true,
-    // 开发环境允许其他电脑访问
-    // hot: {
-    //   host: {
-    //     client: internalIp.v4.sync(),
-    //     server: '0.0.0.0'
-    //   }
-    // },
-    overlay: true,
-    dev: {
-      /*
-      指定 webpack-dev-middleware 的 publicpath
-      一般情况下与 output.publicPath 保持一致（除非 output.publicPath 使用的是相对路径）
-      https://github.com/webpack/webpack-dev-middleware#publicpath
-      */
-      publicPath: '/assets/'
-    }
-    // proxy: {
-    //   "/comments": {
-    //     target: "https://m.weibo.cn",
-    //     changeOrigin: true,
-    //     logLevel: "debug",
-    //     headers: {
-    //       Cookie: ""
-    //     }
-    //   }
-    // },
-    // historyApiFallback: {
-    //   rewrites: [{
-    //     from: /.*/,
-    //     to: "/index.html"
-    //   }]
-    // }
-  },
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, 'src')
+      '@': path.resolve(__dirname, '../src')
     }
   }
 

@@ -1,9 +1,41 @@
+#这是一个统一编辑器代码风格的工具
+#统一代码风格工具——editorConfig
+#定义项目的编码规范,其优先级比编辑器自身的设置要高
+#有些编辑器默认支持editorConfig，如webstorm；而有些编辑器则需要安装editorConfig插件，如ATOM、Sublime、VS Code等
+#当打开一个文件时，EditorConfig插件会在打开文件的目录和其每一级父目录查找.editorconfig文件，直到有一个配置文件root=true
+# EditorConfig的配置文件是从上往下读取的并且最近的EditorConfig配置文件会被最先读取. 匹配EditorConfig配置文件中的配置项会按照读取顺序被应用, 所以最近的配置文件中的配置项拥有优先权
+# 如果.editorconfig文件没有进行某些配置，则使用编辑器默认的设置
+#表示是最顶层的配置文件，发现设为true时，才会停止查找.editorconfig文件
 root = true
 
+# 匹配除/之外的任意字符串 即匹配所有文件类型
 [*]
+
+#字符集utf-8
+# 设置编码，值为latin1、utf-8、utf-8-bom、utf-16be和utf-16le，不建议使用utf-8-bom
 charset = utf-8
+
+#缩进风格：空格
+#使用tab或者space
 indent_style = space
+
+#使用2个空格缩进
+#缩进为space时，缩进的字符数
 indent_size = 2
+
+#换行符lf 因为不同系统换行符不同
+#值有lf、cr和crlf
 end_of_line = lf
+
+#在代码最后添加一行空行
 insert_final_newline = true
+
+#去除行末尾多余的空白
 trim_trailing_whitespace = true
+
+[*.md]
+#markdown文件行尾空格不能自动删除，markdown文件是通过行尾三个空格来实现换行
+trim_trailing_whitespace = false
+
+[*.{json,yml}]
+indent_size = 4
