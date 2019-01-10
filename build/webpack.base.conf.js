@@ -1,13 +1,14 @@
 'use strict'
 
-// webpack v4
-const path = require('path')
-const HtmlPlugin = require('html-webpack-plugin')
 // extract-text-webpack-plugin在webpack 4表现并不好，mini-css-extract-plugin代替
 // 需要把webpack升级到4.2.0.0，不然这个插件无法运行！
+const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const CleanWebpackPlugin = require('clean-webpack-plugin');
 const internalIp = require('internal-ip')
-
+const {
+  VueLoaderPlugin
+} = require('vue-loader');
 // const dev = Boolean(process.env.)
 // console.log(dev);
 module.exports = {
@@ -83,30 +84,15 @@ module.exports = {
     ]
   },
   plugins: [
-    // 在dist生成index.html页面
-    new HtmlPlugin({
-      // 要用html模版，必须安装html-loader
-      template: path.resolve(__dirname, 'index.html'),
-      // 生成的html文件名称
-      // filename: 'index.html',
-      favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
-      // 内置html-minifier压缩插件
-      minify: {
-        //   // 默认值都为false
-        //   // 清理注释
-        removeComments: false,
-        //   // 清理html中的空格、换行符 但span元素内字符串包含的空格没有被清理
-        collapseWhitespace: true,
-        //   // 压缩html内的样式
-        //   minifyCSS: false,
-        //   // 压缩html内的js。
-        //   minifyJS: false
-      }
-    }),
     new MiniCssExtractPlugin({
       filename: 'static/css/[name].[hash].css',
       chunkFilename: 'static/css/[name].[hash].css'
-    })
+    }),
+    new CleanWebpackPlugin(['dist/'], {
+      root: path.resolve(__dirname, '../')
+    }),
+    // 添加VueLoaderPlugin，以响应vue-loader
+    new VueLoaderPlugin()
   ],
   optimization: {
     // 提取公共代码
