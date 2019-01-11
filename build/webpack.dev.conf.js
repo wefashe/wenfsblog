@@ -3,7 +3,6 @@
 //合并webpack配置文件的插件
 const merge = require('webpack-merge');
 const path = require('path');
-const HtmlPlugin = require('html-webpack-plugin')
 const webpack = require('webpack');
 const baseConfig = require('./webpack.base.conf');
 module.exports = merge(baseConfig, {
@@ -12,7 +11,7 @@ module.exports = merge(baseConfig, {
   // source-map,将编译后的代码映射到原代码，便于报错后定位错误
   devtool: 'cheap-module-eval-source-map',
   devServer: {
-    contentBase: path.resolve(__dirname, '../dist'),
+    // contentBase: path.resolve(__dirname, '../dist'),
     //   host: '0.0.0.0',
     port: 8000,
     hot: true,
@@ -29,14 +28,15 @@ module.exports = merge(baseConfig, {
       //出现错误时，显示在网页上
       errors: true,
     },
-    //   dev: {
-    //     /*
-    //     指定 webpack-dev-middleware 的 publicpath
-    //     一般情况下与 output.publicPath 保持一致（除非 output.publicPath 使用的是相对路径）
-    //     https://github.com/webpack/webpack-dev-middleware#publicpath
-    //     */
-    //     publicPath: '/assets/'
-    //   }
+    // publicPath: '/wenfsblog/'
+    // dev: {
+    //   /*
+    //   指定 webpack-dev-middleware 的 publicpath
+    //   一般情况下与 output.publicPath 保持一致（除非 output.publicPath 使用的是相对路径）
+    //   https://github.com/webpack/webpack-dev-middleware#publicpath
+    //   */
+    //   publicPath: '/assets/'
+    // }
     // proxy: {
     //   "/comments": {
     //     target: "https://m.weibo.cn",
@@ -55,26 +55,6 @@ module.exports = merge(baseConfig, {
     // }
   },
   plugins: [
-    // 在dist生成index.html页面
-    new HtmlPlugin({
-      // 要用html模版，必须安装html-loader
-      template: path.resolve(__dirname, 'index.html'),
-      // 生成的html文件名称
-      // filename: 'index.html',
-      favicon: path.resolve(__dirname, '../src/assets/images/favicon.ico'),
-      // 内置html-minifier压缩插件
-      minify: {
-        //   // 默认值都为false
-        //   // 清理注释
-        // removeComments: false,
-        //   // 清理html中的空格、换行符 但span元素内字符串包含的空格没有被清理
-        collapseWhitespace: false,
-        //   // 压缩html内的样式
-        //   minifyCSS: false,
-        //   // 压缩html内的js。
-        //   minifyJS: false
-      }
-    }),
     //hot:true启用这个插件
     new webpack.HotModuleReplacementPlugin(),
     //在编译出现错误时，使用 NoEmitOnErrorsPlugin 来跳过输出阶段。这样可以确保输出资源不会包含错误
