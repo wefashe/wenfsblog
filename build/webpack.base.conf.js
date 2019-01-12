@@ -1,7 +1,7 @@
 'use strict'
 
 const path = require('path');
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+// const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin');
 const webpack = require('webpack');
 const HtmlPlugin = require('html-webpack-plugin')
@@ -23,18 +23,20 @@ module.exports = {
           loader: 'babel-loader'
         }
       }, {
-        test: /\.l?(c|e)ss$/,
+        test: /\.css$/,
         use: [
-          MiniCssExtractPlugin.loader,
-          {
-            loader: 'css-loader'
-          },
-          {
-            loader: 'postcss-loader'
-          },
-          {
-            loader: 'less-loader'
-          },
+          'style-loader', // 为 css 创建 style 标签并置入其中插入页面
+          'css-loader', // 处理 css
+          'postcss-loader', // 浏览器兼容问题
+        ]
+      },
+      {
+        test: /\.less$/,
+        use: [
+          'style-loader',
+          'css-loader',
+          'postcss-loader',
+          'less-loader' // loader 由下往上依次开始处理
         ]
       },
       {
@@ -53,7 +55,7 @@ module.exports = {
         }]
       },
       {
-        test: /\.(png|jpg|jfif|jpeg|gif)$/,
+        test: /\.(png|jpg|jfif|jpeg|gif|svg)$/,
         use: [{
           loader: 'url-loader',
           options: {
@@ -77,14 +79,29 @@ module.exports = {
       {
         test: /\.vue$/,
         loader: 'vue-loader'
+      },
+      {
+        test: /\.md$/,
+        use: [{
+            loader: 'vue-loader',
+            options: {
+              compilerOptions: {
+                preserveWhitespace: false
+              }
+            }
+          },
+          {
+            loader: require.resolve('./md-loader')
+          }
+        ]
       }
     ]
   },
   plugins: [
-    new MiniCssExtractPlugin({
-      // filename: 'static/css/[name].[hash].css',
-      // chunkFilename: 'static/css/[name].[hash].css'
-    }),
+    // new MiniCssExtractPlugin({
+    //   // filename: 'static/css/[name].[hash].css',
+    //   // chunkFilename: 'static/css/[name].[hash].css'
+    // }),
     // 在dist生成index.html页面
     new HtmlPlugin({
       // 要用html模版，必须安装html-loader

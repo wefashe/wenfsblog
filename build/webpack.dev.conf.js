@@ -5,6 +5,24 @@ const merge = require('webpack-merge');
 const path = require('path');
 const webpack = require('webpack');
 const baseConfig = require('./webpack.base.conf');
+const getData = require('./datagen');
+// getData();
+// //加上对post目录的监测，文件发生修改时自动更新页面
+// const postDir = '../docs'
+// const update = () => {
+//   getData().catch(err => {
+//     console.error(logger.error(chalk.red(err.stack), false))
+//   })
+// }
+// const postWatcher = chokidar.watch([
+//   'post/*.md'
+// ], {
+//   cwd: postDir,
+//   ignoreInitial: true
+// })
+// postWatcher.on('change', update)
+
+
 module.exports = merge(baseConfig, {
   // mode关系到代码压缩质量  https://webpack.docschina.org/guides/tree-shaking/
   mode: 'development',
