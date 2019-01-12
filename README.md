@@ -1,4 +1,4 @@
-
+[![Build Status](https://travis-ci.org/wefashe/wenfsblog.svg?branch=master)](https://travis-ci.org/wefashe/wenfsblog)
 
 [![update][update-image]][branch-commit-url]
 [![Star][star-image]][project-url]
