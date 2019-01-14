@@ -18,14 +18,13 @@ before_install:
 install:
   - npm install
 
-# script:
-#   - npm run deploy
-#   - npm run build
+script:
+#   - ./deploy.sh
+  - npm run deploy
 
 
 after_script:
-#   -./deploy.sh
-  - npm run deploy
+  - echo 'Build completed!'
 
 #设置变量GH_REF
 env:
