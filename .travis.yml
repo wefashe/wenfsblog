@@ -1,7 +1,6 @@
 language: node_js
 
-node_js:
-- node
+node_js: node
 
 cache:
   directories:
@@ -12,35 +11,23 @@ branches:
   only:
   - master
 
-# before_install:
-#   - openssl aes-256-cbc -K $encrypted_e34fefeac313_key -iv $encrypted_e34fefeac313_iv -in id_rsa.enc -out id_rsa -d
-
-  # 改变文件权限
-#   - chmod 600 ~/.ssh/id_rsa
-
-  # 配置 ssh
-#   - eval $(ssh-agent)
-#   - ssh-add ~/.ssh/id_rsa
-#   - cp .travis/ssh_config ~/.ssh/config
+before_install:
+  - export TZ='Asia/Shanghai' # 更改时区
+  - chmod +x ./deploy.sh  # 为shell文件添加可执行权限
 
 install:
   - npm install
 
-script:
+# script:
 #   - npm run deploy
-  - npm run build
+#   - npm run build
 
 
 after_script:
-  - cd ./dist
-  - git init
-  - git config user.name "wenfs"
-  - git config user.email "wefashe@qq.com"
-  - git add -A
-  - git commit -m "deploy :construction:"
-  - git push --force --quiet "https://${GH_TOKEN}@${GH_REF}" master:gh-pages
+#   -./deploy.sh
+  - npm run deploy
 
-
+#设置变量GH_REF
 env:
  global:
    - GH_REF: github.com/wefashe/wenfsblog.git
