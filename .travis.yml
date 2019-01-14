@@ -1,19 +1,36 @@
 language: node_js
+
 node_js:
 - node
+
 cache:
   directories:
   - node_modules
-  - npm
+
+# master为hexo博客所在分支
 branches:
   only:
   - master
-install:
-- npm install
-script:
-- git config user.name "wenfs"
-- git config user.email "wefashe@qq.com"
-- npm run deploy
+
+
 before_install:
-- openssl aes-256-cbc -K $encrypted_e34fefeac313_key -iv $encrypted_e34fefeac313_iv
+  - openssl aes-256-cbc -K $encrypted_e34fefeac313_key -iv $encrypted_e34fefeac313_iv
   -in id_rsa.enc -out id_rsa -d
+
+  # 改变文件权限
+  - chmod 600 ~/.ssh/id_rsa
+
+  # 配置 ssh
+  - eval $(ssh-agent)
+  - ssh-add ~/.ssh/id_rsa
+  - cp .travis/ssh_config ~/.ssh/config
+
+  # 配置git 的个人信息
+  - git config user.name "wenfs"
+  - git config user.email "wefashe@qq.com"
+
+install:
+  - npm install
+
+script:
+  - npm run deploy
