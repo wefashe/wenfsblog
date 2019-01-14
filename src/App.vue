@@ -13,8 +13,7 @@ import matter from 'gray-matter';
 export default {
   methods: {
     test: function () {
-      var value = matter.read('./README.md');
-      return value;
+      console.log(123);
     }
   },
   mounted () {
