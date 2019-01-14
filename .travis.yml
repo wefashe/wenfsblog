@@ -1,24 +1,24 @@
 language: node_js   # 声明构建语言环境
 
-notifications:      # 每次构建的时候是否通知，如果不想收到通知邮箱（个人感觉邮件贼烦），那就设置false吧
-  email: false
+# notifications:      # 每次构建的时候是否通知，如果不想收到通知邮箱（个人感觉邮件贼烦），那就设置false吧
+#   email: false
 
-sudo: false         # 开启基于容器的Travis CI任务，让编译效率更高。
-node_js:
-    -8.9.3
-cache:
-  directories:
-    - node_modules
-branches:
-  only:
-    -master
+# sudo: false         # 开启基于容器的Travis CI任务，让编译效率更高。
+# node_js:
+#     -8.9.3
+# cache:
+#   directories:
+#     - node_modules
+# branches:
+#   only:
+#     -master
 
 # before_install:
 #   - npm install -g hexo-cli
 
 # Start: Build Lifecycle
-install:
-  - npm install
+# install:
+#   - npm install
 #   - npm install hexo-deployer-git --save
 
 # script:
