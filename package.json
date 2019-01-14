@@ -4,7 +4,7 @@
     "description": "[![update][update-image]][branch-commit-url] [![Star][star-image]][project-url] [![Fork][fork-image]][project-url]",
     "main": "index.js",
     "scripts": {
-        "test": "echo \"Error: no test specified\" && exit 1",
+        "test": "echo \"Error: no test specified\"",
         "lint": "eslint --ext .js,.vue src",
         "dev": "webpack --config build/webpack.dev.conf.js",
         "start": "webpack-dev-server --inline --progress --colors --config build/webpack.dev.conf.js",
