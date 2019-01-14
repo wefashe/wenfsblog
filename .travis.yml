@@ -6,7 +6,8 @@ cache:
   - node_modules
   - npm
 branches:
-  only: "-master"
+  only:
+  - master
 install:
 - npm install
 script:
