@@ -9,9 +9,10 @@ node_js:
 cache:
   directories:
     - node_modules
-# branches:
-#   only:
-#     -master
+
+branches:
+  only:
+    -master
 
 # before_install:
 #   - npm install -g hexo-cli
@@ -24,8 +25,8 @@ install:
 script:
 # #   - hexo clean
 # #   - hexo generate
-#   - git config user.name "wenfs"
-#     - git config user.email "wefashe@qq.com"
+    - git config user.name "wenfs"
+    - git config user.email "wefashe@qq.com"
     - npm run deploy
 
 # after_script:
