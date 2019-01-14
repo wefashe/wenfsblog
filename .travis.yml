@@ -21,12 +21,12 @@ install:
   - npm install
 #   - npm install hexo-deployer-git --save
 
-script:
-#   - hexo clean
-#   - hexo generate
-  - git config user.name "wenfs"
-    - git config user.email "wefashe@qq.com"
-    - npm run deploy
+# script:
+# #   - hexo clean
+# #   - hexo generate
+#   - git config user.name "wenfs"
+#     - git config user.email "wefashe@qq.com"
+#     - npm run deploy
 
 # after_script:
 #     - git config user.name "wenfs"
