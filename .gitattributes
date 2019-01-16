@@ -5,5 +5,5 @@
 # 还可以按文件类型进行忽略；
 
 *.css linguist-vendored
-*.js linguist-language=Vue
+*.js linguist-language=JavaScript
 *.vue linguist-language=Vue
