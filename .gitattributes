@@ -1,0 +1,9 @@
+# 指定github项目的语言
+
+# 使用 linguist-vendored 来忽略目录下的文件的语言
+# public/statics/* linguist-vendored
+# 还可以按文件类型进行忽略；
+
+*.css linguist-vendored
+*.js linguist-language=Vue
+*.vue linguist-language=Vue
