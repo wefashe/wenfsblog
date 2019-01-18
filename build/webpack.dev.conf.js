@@ -46,6 +46,13 @@ module.exports = merge(baseConfig, {
       //出现错误时，显示在网页上
       errors: true,
     },
+
+    proxy: {
+      '/api/v2': {
+        target: "https://www.yuque.com/",
+        changeOrigin: true,
+      }
+    }
     // publicPath: '/wenfsblog/'
     // dev: {
     //   /*

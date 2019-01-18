@@ -40,8 +40,3 @@ webpack(config, function (err, stats) {
     '  Opening index.html over file:// won\'t work.\n'
   ))
 });
-
-
-function getErr(err, stats) {
-
-}

@@ -1,11 +1,11 @@
-import fetch from 'fetch'
+import request from 'request'
 
 export default {
   /**
    * 用户登录
    */
   Login(params) {
-    return fetch('/users/api/userLogin', params)
+    return request.get('/users/api/userLogin', params)
   },
 
   /**

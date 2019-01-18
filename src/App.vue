@@ -1,9 +1,12 @@
 
   <template>
-  <div style="background:#eee;padding: 20px">
-    <Card :bordered="false">
-      <p slot="title">No border title</p>
-      <p>Content of no border type. Content of no border type. Content of no border type. Content of no border type. </p>
+  <div>
+    <Card :bordered="false"
+          v-for="(post,index) in posts"
+          :key="index">
+      <p slot="title"
+         v-text="post.title"></p>
+      <p v-text="post.description"></p>
     </Card>
   </div>
 </template>
@@ -11,13 +14,23 @@
 import matter from 'gray-matter';
 
 export default {
+  data () {
+    return {
+      posts: []
+    }
+  },
   methods: {
+    //方法定义
     test: function () {
       console.log(123);
     }
   },
   mounted () {
-    console.log(this.test());
+    //方法执行
+    this.$get('/user/docs')
+      .then((response) => {
+        this.posts = response.data;
+      })
   }
 }
 </script>
