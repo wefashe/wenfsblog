@@ -4,7 +4,7 @@
 set -e
 
 # 构建
-npm run build
+npm run client:build
 
 # 克隆代码
 git clone https://${GH_REF} .deploy_git
