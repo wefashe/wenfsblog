@@ -12,9 +12,9 @@ cd .deploy_git
 git checkout -B gh-pages
 
 cd ../
-cp -rf .deploy_git/.git/ dist/
+cp -rf .deploy_git/.git/ dist/client/
 rm -rf .deploy_git/
-cd dist
+cd dist/client
 
 # 如果你是要部署到自定义域名
 # echo 'www.example.com' > CNAME
